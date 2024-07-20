@@ -130,7 +130,7 @@ class Model(nn.Module):
         logit = self.decision_branch(torch.cat([b1, b2], 1))
         return logit
 
-def getDataLoader():
+def getDataLoader(batchsize,num_workers):
     # 划分训练集和测试集的比例
     val_ratio = 0.20  # 80 / 20
     root_dit = "/data1/detrgroup/cy/20240624/"
@@ -161,29 +161,40 @@ def getDataLoader():
 
     train_loader = torch.utils.data.DataLoader(
         train_dataset,
-        num_workers=0,
-        batch_size=1,
+        num_workers=num_workers,
+        batch_size=batchsize,
         shuffle=True,
     )
-    return train_loader
+    val_dataset = GAMMA_sub1_dataset(
+        dataset_root=trainset_root,
+        filelists=val_filelists,
+        label_file=gt_file,
+    )
+    val_loader = torch.utils.data.DataLoader(
+        val_dataset,
+        batch_size=batchsize,
+        num_workers=num_workers
+
+    )
+    return train_loader,val_loader
 
 
+#hyper parameter
+num_workers = 4
+batchsize = 4
+iters = 1000
+optimizer_type = "adam"
+init_lr = 1e-3
 
 
-
-train_loader =getDataLoader()
+train_loader,val_loader =getDataLoader(batchsize,num_workers)
 device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
 print("Using device:", device)
 model = Model().to(device)
 
 
 
-#hyper parameter
-num_workers = 4
-batchsize = 8
-iters = 1000
-optimizer_type = "adam"
-init_lr = 1e-3
+
 
 
 def val(model, val_dataloader, criterion):
@@ -299,9 +310,9 @@ train(
     model,
     iters,
     train_loader,
-    train_loader,
+    val_loader,
     optimizer,
     criterion,
     log_interval=10,
-    eval_interval=10,
+    eval_interval=100,
 )
