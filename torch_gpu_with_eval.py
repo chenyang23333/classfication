@@ -13,11 +13,12 @@ import torch.nn as nn
 import warnings
 from torchvision import models
 from efficientnet_pytorch import EfficientNet
+from torchvision import transforms as trans
 class GAMMA_sub1_dataset(torch.utils.data.Dataset):
     def __init__(
         self,
-        # img_transforms,
-        # oct_transforms,
+        img_transforms,
+        oct_transforms,
         dataset_root,
         label_file="",
         filelists=None,
@@ -25,8 +26,8 @@ class GAMMA_sub1_dataset(torch.utils.data.Dataset):
         mode="train",
     ):
         self.dataset_root = dataset_root
-        # self.img_transforms = img_transforms
-        # self.oct_transforms = oct_transforms
+        self.img_transforms = img_transforms
+        self.oct_transforms = oct_transforms
         self.mode = mode.lower()
         self.num_classes = num_classes
         # 如果是加载训练集，则需要加载label
@@ -87,12 +88,19 @@ class GAMMA_sub1_dataset(torch.utils.data.Dataset):
                 cv2.IMREAD_GRAYSCALE,
             )
 
-        # # 对彩色眼底图片进行数据增强
+        # 对彩色眼底图片进行数据增强
         # if self.img_transforms is not None:
+        #     from PIL import Image
+        #     if isinstance(fundus_img, np.ndarray):
+        #         fundus_img = Image.fromarray(fundus_img)
         #     fundus_img = self.img_transforms(fundus_img)
 
-        # # 对3D OCT图片进行数据增强
+        # 对3D OCT图片进行数据增强
         # if self.oct_transforms is not None:
+        #     breakpoint()
+        #     # from PIL import Image
+        #     # if isinstance(oct_img, np.ndarray):
+        #     #     oct_img = Image.fromarray(oct_img)
         #     oct_img = self.oct_transforms(oct_img)
 
         # 交换维度，变为[通道数，高，宽],  H, W, C -> C, H, W
@@ -111,6 +119,53 @@ class GAMMA_sub1_dataset(torch.utils.data.Dataset):
     # 获取数据集总的长度
     def __len__(self):
         return len(self.file_list)
+
+
+image_size = [256, 256]
+# 三维OCT图片每个切片的大小
+oct_img_size = [512, 512]
+
+# 数据增强操作
+img_train_transforms = trans.Compose(
+    [
+        # 按比例随机裁剪原图后放缩到对应大小
+        trans.RandomResizedCrop(
+            image_size, scale=(0.90, 1.1), ratio=(0.90, 1.1)
+        ),
+        # 随机水平翻转
+        trans.RandomHorizontalFlip(),
+        # 随机垂直翻转
+        trans.RandomVerticalFlip(),
+        # 随机旋转
+        trans.RandomRotation(30),
+    ]
+)
+
+oct_train_transforms = trans.Compose(
+    [
+        # 中心裁剪到对应大小
+        trans.CenterCrop(oct_img_size),
+        # 随机水平翻转
+        trans.RandomHorizontalFlip(),
+        # 随机垂直翻转
+        trans.RandomVerticalFlip(),
+    ]
+)
+
+img_val_transforms = trans.Compose(
+    [
+        # 将图片放缩到固定大小
+        trans.Resize(image_size)
+    ]
+)
+
+oct_val_transforms = trans.Compose(
+    [
+        # 中心裁剪到固定大小
+        trans.CenterCrop(oct_img_size)
+    ]
+)
+
 
 class Model(nn.Module):
     def __init__(self):
@@ -153,8 +208,8 @@ def getDataLoader(batchsize,num_workers):
     )
     train_dataset = GAMMA_sub1_dataset(
         dataset_root=trainset_root,
-        # img_transforms=img_train_transforms,
-        # oct_transforms=oct_train_transforms,
+        img_transforms=img_train_transforms,
+        oct_transforms=oct_train_transforms,
         filelists=train_filelists,
         label_file=gt_file,
     )
@@ -169,6 +224,8 @@ def getDataLoader(batchsize,num_workers):
         dataset_root=trainset_root,
         filelists=val_filelists,
         label_file=gt_file,
+        img_transforms=img_val_transforms,
+        oct_transforms=oct_val_transforms,
     )
     val_loader = torch.utils.data.DataLoader(
         val_dataset,
@@ -181,8 +238,8 @@ def getDataLoader(batchsize,num_workers):
 
 #hyper parameter
 num_workers = 4
-batchsize = 4
-iters = 1000
+batchsize = 1
+iters = 2000
 optimizer_type = "adam"
 init_lr = 1e-3
 
@@ -191,10 +248,6 @@ train_loader,val_loader =getDataLoader(batchsize,num_workers)
 device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
 print("Using device:", device)
 model = Model().to(device)
-
-
-
-
 
 
 def val(model, val_dataloader, criterion):
@@ -313,6 +366,6 @@ train(
     val_loader,
     optimizer,
     criterion,
-    log_interval=10,
+    log_interval=50,
     eval_interval=100,
 )
