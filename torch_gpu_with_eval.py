@@ -8,7 +8,7 @@ from sklearn.metrics import cohen_kappa_score
 
 import torch
 import torch.nn as nn
-
+import random
 
 import warnings
 from torchvision import models
@@ -87,21 +87,25 @@ class GAMMA_sub1_dataset(torch.utils.data.Dataset):
                 os.path.join(self.dataset_root, real_index, real_index, p),
                 cv2.IMREAD_GRAYSCALE,
             )
-
+        # breakpoint()
         # 对彩色眼底图片进行数据增强
-        # if self.img_transforms is not None:
+        if self.img_transforms is not None:
         #     from PIL import Image
-        #     if isinstance(fundus_img, np.ndarray):
-        #         fundus_img = Image.fromarray(fundus_img)
-        #     fundus_img = self.img_transforms(fundus_img)
+        #     breakpoint()
+        #     # if isinstance(fundus_img, np.ndarray):
+        #     #     fundus_img = Image.fromarray(fundus_img)
+        #     fundus_img = Image.fromarray(fundus_img)
+            fundus_img = self.img_transforms(fundus_img)
+        #     fundus_img =  np.array(fundus_img)
 
         # 对3D OCT图片进行数据增强
-        # if self.oct_transforms is not None:
+        if self.oct_transforms is not None:
         #     breakpoint()
         #     # from PIL import Image
         #     # if isinstance(oct_img, np.ndarray):
-        #     #     oct_img = Image.fromarray(oct_img)
-        #     oct_img = self.oct_transforms(oct_img)
+        #     # oct_img = Image.fromarray(oct_img)
+            oct_img = self.oct_transforms(oct_img)
+        #     # oct_img = np.array(oct_img)
 
         # 交换维度，变为[通道数，高，宽],  H, W, C -> C, H, W
 
@@ -126,46 +130,107 @@ image_size = [256, 256]
 oct_img_size = [512, 512]
 
 # 数据增强操作
-img_train_transforms = trans.Compose(
-    [
-        # 按比例随机裁剪原图后放缩到对应大小
-        trans.RandomResizedCrop(
-            image_size, scale=(0.90, 1.1), ratio=(0.90, 1.1)
-        ),
-        # 随机水平翻转
-        trans.RandomHorizontalFlip(),
-        # 随机垂直翻转
-        trans.RandomVerticalFlip(),
-        # 随机旋转
-        trans.RandomRotation(30),
-    ]
-)
+# img_train_transforms = trans.Compose(
+#     [
+#         # 按比例随机裁剪原图后放缩到对应大小
+#         trans.RandomResizedCrop(
+#             image_size, scale=(0.90, 1.1), ratio=(0.90, 1.1)
+#         ),
+#         # 随机水平翻转
+#         trans.RandomHorizontalFlip(),
+#         # 随机垂直翻转
+#         trans.RandomVerticalFlip(),
+#         # 随机旋转
+#         trans.RandomRotation(30),
+#     ]
+# )
+#
+# oct_train_transforms = trans.Compose(
+#     [
+#         # 中心裁剪到对应大小
+#         trans.CenterCrop(oct_img_size),
+#         # 随机水平翻转
+#         trans.RandomHorizontalFlip(),
+#         # 随机垂直翻转
+#         trans.RandomVerticalFlip(),
+#     ]
+# )
+#
+# img_val_transforms = trans.Compose(
+#     [
+#         # 将图片放缩到固定大小
+#         trans.Resize(image_size)
+#     ]
+# )
+#
+# oct_val_transforms = trans.Compose(
+#     [
+#         # 中心裁剪到固定大小
+#         trans.CenterCrop(oct_img_size)
+#     ]
+# )
 
-oct_train_transforms = trans.Compose(
-    [
-        # 中心裁剪到对应大小
-        trans.CenterCrop(oct_img_size),
-        # 随机水平翻转
-        trans.RandomHorizontalFlip(),
-        # 随机垂直翻转
-        trans.RandomVerticalFlip(),
-    ]
-)
+def random_horizontal_flip(image, p=0.5):
+    if random.random() < p:  # 以p概率执行水平翻转
+        return cv2.flip(image, 1)
+    else:
+        return image  # 不执行翻转，直接返回原图
 
-img_val_transforms = trans.Compose(
-    [
-        # 将图片放缩到固定大小
-        trans.Resize(image_size)
-    ]
-)
 
-oct_val_transforms = trans.Compose(
-    [
-        # 中心裁剪到固定大小
-        trans.CenterCrop(oct_img_size)
-    ]
-)
+def random_vertical_flip(image, p=0.5):
+    if random.random() < p:  # 以p概率执行水平翻转
+        return cv2.flip(image, 0)
+    else:
+        return image  # 不执行翻转，直接返回原图
 
+from skimage.transform import rotate
+
+def random_rotation(image, angle_range=(-10, 10), p=0.5):
+    if random.random() < p:
+        angle = np.random.uniform(angle_range[0], angle_range[1])
+        rotated = rotate(image, angle, mode='reflect', preserve_range=True)
+        return rotated.astype(np.uint8)
+    else:
+        return image
+
+
+
+def adjust_brightness(image, delta_range=(-30, 30)):
+    delta = np.random.uniform(delta_range[0], delta_range[1])
+    adjusted = np.clip(image + delta, 0, 255).astype(np.uint8)
+    return adjusted
+
+def adjust_contrast(image, alpha_range=(0.8, 1.2)):
+    alpha = np.random.uniform(alpha_range[0], alpha_range[1])
+    adjusted = np.clip(image * alpha, 0, 255).astype(np.uint8)
+    return adjusted
+
+
+def random_crop_and_resize(image, scale_range=(0.8, 1.0), output_shape=(224, 224)):
+    height, width = image.shape[:2]
+    scale = np.random.uniform(scale_range[0], scale_range[1])
+    new_height, new_width = int(height * scale), int(width * scale)
+
+    y = np.random.randint(0, height - new_height + 1)
+    x = np.random.randint(0, width - new_width + 1)
+
+    cropped = image[y:y + new_height, x:x + new_width]
+    resized = cv2.resize(cropped, output_shape)
+    return resized
+
+
+def augment_image(image):
+    image = random_horizontal_flip(image)
+    image = random_vertical_flip(image)
+    image = random_rotation(image)
+    image = adjust_brightness(image)
+    image = adjust_contrast(image)
+    image = random_crop_and_resize(image)
+    return image
+img_train_transforms = augment_image
+oct_train_transforms = augment_image
+img_val_transforms =augment_image
+oct_val_transforms = augment_image
 
 class Model(nn.Module):
     def __init__(self):
@@ -294,6 +359,7 @@ def train(
     best_kappa = 0.5
     # breakpoint()
     while iter1 < iters:
+        # breakpoint()
         for data in iter(train_dataloader):
             iter1 += 1
             # breakpoint()
