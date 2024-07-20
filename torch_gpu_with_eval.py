@@ -168,6 +168,9 @@ def getDataLoader():
     return train_loader
 
 
+
+
+
 train_loader =getDataLoader()
 device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
 print("Using device:", device)
@@ -181,6 +184,32 @@ batchsize = 8
 iters = 1000
 optimizer_type = "adam"
 init_lr = 1e-3
+
+
+def val(model, val_dataloader, criterion):
+    model.eval()
+    avg_loss_list = []
+    cache = []
+    with torch.no_grad():
+        for data in val_dataloader:
+            fundus_imgs = (data[0] / 255.0).to(torch.float32).to(device)
+            oct_imgs = (data[1] / 255.0).to(torch.float32).to(device)
+            labels = data[2].to(torch.int64).to(device)
+            fundus_imgs = fundus_imgs.clone().detach().requires_grad_(True)
+            oct_imgs = oct_imgs.clone().detach().requires_grad_(True)
+            logits = model(fundus_imgs, oct_imgs)
+
+            for p, l in zip(logits.cpu().detach().numpy().argmax(1), labels.cpu().detach().numpy()):
+                cache.append([p, l])
+
+            loss = criterion(logits, labels)
+            avg_loss_list.append(loss.cpu().detach().numpy().item())
+
+    cache = np.array(cache)
+    kappa = cohen_kappa_score(cache[:, 0], cache[:, 1], weights="quadratic")
+    avg_loss = np.array(avg_loss_list).mean()
+
+    return avg_loss, kappa
 
 
 # 训练逻辑
@@ -241,6 +270,23 @@ def train(
                     )
                 )
 
+            if iter1 % eval_interval == 0:
+                avg_loss, avg_kappa = val(model, val_dataloader, criterion)
+                print(
+                    "[EVAL] iter={}/{} avg_loss={:.4f} kappa={:.4f}".format(
+                        iter, iters, avg_loss, avg_kappa
+                    )
+                )
+                # 保存精度更好的模型
+                if avg_kappa >= best_kappa:
+                    best_kappa = avg_kappa
+                    torch.save(
+                        model.state_dict(),
+                        os.path.join(
+                            "best_model_{:.4f}".format(best_kappa),
+                            "model.pdparams",
+                        ),
+                    )
                 model.train()
 
 
@@ -256,6 +302,6 @@ train(
     train_loader,
     optimizer,
     criterion,
-    log_interval=50,
-    eval_interval=50,
+    log_interval=10,
+    eval_interval=10,
 )
