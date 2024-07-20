@@ -195,15 +195,15 @@ def random_rotation(image, angle_range=(-10, 10), p=0.5):
 
 
 
-def adjust_brightness(image, delta_range=(-30, 30)):
-    delta = np.random.uniform(delta_range[0], delta_range[1])
-    adjusted = np.clip(image + delta, 0, 255).astype(np.uint8)
-    return adjusted
-
-def adjust_contrast(image, alpha_range=(0.8, 1.2)):
-    alpha = np.random.uniform(alpha_range[0], alpha_range[1])
-    adjusted = np.clip(image * alpha, 0, 255).astype(np.uint8)
-    return adjusted
+# def adjust_brightness(image, delta_range=(-30, 30)):
+#     delta = np.random.uniform(delta_range[0], delta_range[1])
+#     adjusted = np.clip(image + delta, 0, 255).astype(np.uint8)
+#     return adjusted
+#
+# def adjust_contrast(image, alpha_range=(0.8, 1.2)):
+#     alpha = np.random.uniform(alpha_range[0], alpha_range[1])
+#     adjusted = np.clip(image * alpha, 0, 255).astype(np.uint8)
+#     return adjusted
 
 
 def random_crop_and_resize(image, scale_range=(0.8, 1.0), output_shape=(224, 224)):
@@ -223,8 +223,8 @@ def augment_image(image):
     image = random_horizontal_flip(image)
     image = random_vertical_flip(image)
     image = random_rotation(image)
-    image = adjust_brightness(image)
-    image = adjust_contrast(image)
+    # image = adjust_brightness(image)
+    # image = adjust_contrast(image)
     image = random_crop_and_resize(image)
     return image
 img_train_transforms = augment_image
@@ -432,6 +432,6 @@ train(
     val_loader,
     optimizer,
     criterion,
-    log_interval=50,
-    eval_interval=100,
+    log_interval=10,
+    eval_interval=50,
 )
