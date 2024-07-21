@@ -176,3 +176,68 @@ Loaded pretrained weights for efficientnet-b3
 [TRAIN] iter=1450/2000 avg_loss=0.0095 avg_kappa=1.0000
 [EVAL] iter=<built-in function iter>/2000 avg_loss=3.2024 kappa=0.5668
 [TRAIN] iter=1460/2000 avg_loss=0.0326 avg_kappa=1.0000
+[TRAIN] iter=1470/2000 avg_loss=0.5539 avg_kappa=0.9470
+[TRAIN] iter=1480/2000 avg_loss=0.0160 avg_kappa=1.0000
+[TRAIN] iter=1490/2000 avg_loss=0.0809 avg_kappa=0.9046
+[TRAIN] iter=1500/2000 avg_loss=0.0686 avg_kappa=0.9804
+[EVAL] iter=<built-in function iter>/2000 avg_loss=1.4355 kappa=0.4758
+[TRAIN] iter=1510/2000 avg_loss=0.0138 avg_kappa=1.0000
+[TRAIN] iter=1520/2000 avg_loss=0.0211 avg_kappa=1.0000
+[TRAIN] iter=1530/2000 avg_loss=0.0178 avg_kappa=1.0000
+[TRAIN] iter=1540/2000 avg_loss=0.7999 avg_kappa=0.7583
+[TRAIN] iter=1550/2000 avg_loss=0.0395 avg_kappa=0.9271
+[EVAL] iter=<built-in function iter>/2000 avg_loss=1.8323 kappa=0.5960
+[TRAIN] iter=1560/2000 avg_loss=0.0332 avg_kappa=1.0000
+[TRAIN] iter=1570/2000 avg_loss=0.0480 avg_kappa=1.0000
+[TRAIN] iter=1580/2000 avg_loss=0.0079 avg_kappa=1.0000
+[TRAIN] iter=1590/2000 avg_loss=0.0050 avg_kappa=1.0000
+[TRAIN] iter=1600/2000 avg_loss=0.0537 avg_kappa=0.9582
+[EVAL] iter=<built-in function iter>/2000 avg_loss=1.9844 kappa=0.5149
+[TRAIN] iter=1610/2000 avg_loss=0.0299 avg_kappa=0.9793
+[TRAIN] iter=1620/2000 avg_loss=0.0215 avg_kappa=1.0000
+[TRAIN] iter=1630/2000 avg_loss=0.0303 avg_kappa=1.0000
+[TRAIN] iter=1640/2000 avg_loss=0.0412 avg_kappa=0.9785
+[TRAIN] iter=1650/2000 avg_loss=0.0252 avg_kappa=1.0000
+[EVAL] iter=<built-in function iter>/2000 avg_loss=2.0760 kappa=0.5565
+[TRAIN] iter=1660/2000 avg_loss=0.0188 avg_kappa=1.0000
+[TRAIN] iter=1670/2000 avg_loss=0.0218 avg_kappa=1.0000
+[TRAIN] iter=1680/2000 avg_loss=0.0109 avg_kappa=1.0000
+[TRAIN] iter=1690/2000 avg_loss=0.0020 avg_kappa=1.0000
+[TRAIN] iter=1700/2000 avg_loss=0.3718 avg_kappa=0.9602
+[EVAL] iter=<built-in function iter>/2000 avg_loss=2.5050 kappa=0.6127
+[TRAIN] iter=1710/2000 avg_loss=0.0364 avg_kappa=0.9800
+[TRAIN] iter=1720/2000 avg_loss=0.0278 avg_kappa=0.9814
+[TRAIN] iter=1730/2000 avg_loss=0.0440 avg_kappa=0.9096
+[TRAIN] iter=1740/2000 avg_loss=0.0135 avg_kappa=1.0000
+[TRAIN] iter=1750/2000 avg_loss=0.0103 avg_kappa=1.0000
+[EVAL] iter=<built-in function iter>/2000 avg_loss=2.8944 kappa=0.3254
+[TRAIN] iter=1760/2000 avg_loss=0.0016 avg_kappa=1.0000
+[TRAIN] iter=1770/2000 avg_loss=0.0944 avg_kappa=0.9819
+[TRAIN] iter=1780/2000 avg_loss=0.0790 avg_kappa=0.8954
+[TRAIN] iter=1790/2000 avg_loss=0.0841 avg_kappa=0.9259
+[TRAIN] iter=1800/2000 avg_loss=0.0838 avg_kappa=0.9796
+[EVAL] iter=<built-in function iter>/2000 avg_loss=2.5915 kappa=0.3594
+[TRAIN] iter=1810/2000 avg_loss=0.0302 avg_kappa=0.9299
+[TRAIN] iter=1820/2000 avg_loss=0.0462 avg_kappa=0.9771
+[TRAIN] iter=1830/2000 avg_loss=0.0101 avg_kappa=1.0000
+[TRAIN] iter=1840/2000 avg_loss=0.0130 avg_kappa=1.0000
+[TRAIN] iter=1850/2000 avg_loss=0.0060 avg_kappa=1.0000
+[EVAL] iter=<built-in function iter>/2000 avg_loss=3.0184 kappa=0.3750
+[TRAIN] iter=1860/2000 avg_loss=0.0058 avg_kappa=1.0000
+[TRAIN] iter=1870/2000 avg_loss=0.0084 avg_kappa=1.0000
+[TRAIN] iter=1880/2000 avg_loss=0.0417 avg_kappa=0.9259
+[TRAIN] iter=1890/2000 avg_loss=0.0022 avg_kappa=1.0000
+[TRAIN] iter=1900/2000 avg_loss=0.4227 avg_kappa=0.7822
+[EVAL] iter=<built-in function iter>/2000 avg_loss=2.6591 kappa=0.5565
+[TRAIN] iter=1910/2000 avg_loss=0.0304 avg_kappa=1.0000
+[TRAIN] iter=1920/2000 avg_loss=0.0407 avg_kappa=0.9772
+[TRAIN] iter=1930/2000 avg_loss=0.0094 avg_kappa=1.0000
+[TRAIN] iter=1940/2000 avg_loss=0.0129 avg_kappa=1.0000
+[TRAIN] iter=1950/2000 avg_loss=0.0434 avg_kappa=0.9188
+[EVAL] iter=<built-in function iter>/2000 avg_loss=2.2605 kappa=0.5865
+[TRAIN] iter=1960/2000 avg_loss=0.0135 avg_kappa=1.0000
+[TRAIN] iter=1970/2000 avg_loss=0.0221 avg_kappa=1.0000
+[TRAIN] iter=1980/2000 avg_loss=0.0553 avg_kappa=0.9798
+[TRAIN] iter=1990/2000 avg_loss=0.0109 avg_kappa=1.0000
+[TRAIN] iter=2000/2000 avg_loss=0.0368 avg_kappa=1.0000
+[EVAL] iter=<built-in function iter>/2000 avg_loss=3.1617 kappa=0.5865
