@@ -192,7 +192,7 @@ print("Using device:", device)
 
 
 # 加载训练权重
-best_model_path = "./best_model_0.7834/model.pdparams"  # 注意文件扩展名可能不同
+best_model_path = "./best_model_0.7866/model.pdparams"  # 注意文件扩展名可能不同
 model = Model()
 model.load_state_dict(torch.load(best_model_path, map_location=device))  # 添加map_location参数
 print("load model success")
