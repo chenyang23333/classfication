@@ -190,7 +190,6 @@ def augment_image(image):
 device = torch.device("cuda:5" if torch.cuda.is_available() else "cpu")
 print("Using device:", device)
 
-
 # 加载训练权重
 best_model_path = "./best_model_0.7866/model.pdparams"  # 注意文件扩展名可能不同
 model = Model()
