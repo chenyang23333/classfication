@@ -12,12 +12,15 @@ python toch_gpu_with_eval.py
 python eval_test.py
 
 ### 创新点：
+修改网络结构
 数据集太小，采用数据增强扩充数据集
 增大batch size，调小learning rate，以提高泛化性
 
 环境说明：3090+CUDA Version: 11.6+python3.8
 
 精度指标：目测比官方好，具体指标稍后更新
+
+
 
 
 
