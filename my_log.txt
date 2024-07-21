@@ -159,3 +159,20 @@ Loaded pretrained weights for efficientnet-b3
 [EVAL] iter=<built-in function iter>/2000 avg_loss=2.0019 kappa=0.6364
 [TRAIN] iter=1310/2000 avg_loss=0.0108 avg_kappa=1.0000
 [TRAIN] iter=1320/2000 avg_loss=0.0312 avg_kappa=1.0000
+[TRAIN] iter=1330/2000 avg_loss=0.0482 avg_kappa=0.9829
+[TRAIN] iter=1340/2000 avg_loss=0.0086 avg_kappa=1.0000
+[TRAIN] iter=1350/2000 avg_loss=0.0094 avg_kappa=1.0000
+[EVAL] iter=<built-in function iter>/2000 avg_loss=2.4393 kappa=0.5865
+[TRAIN] iter=1360/2000 avg_loss=0.0074 avg_kappa=1.0000
+[TRAIN] iter=1370/2000 avg_loss=0.0172 avg_kappa=1.0000
+[TRAIN] iter=1380/2000 avg_loss=0.0083 avg_kappa=1.0000
+[TRAIN] iter=1390/2000 avg_loss=0.0154 avg_kappa=1.0000
+[TRAIN] iter=1400/2000 avg_loss=0.0186 avg_kappa=1.0000
+[EVAL] iter=<built-in function iter>/2000 avg_loss=2.1919 kappa=0.5865
+[TRAIN] iter=1410/2000 avg_loss=0.0148 avg_kappa=1.0000
+[TRAIN] iter=1420/2000 avg_loss=0.0066 avg_kappa=1.0000
+[TRAIN] iter=1430/2000 avg_loss=0.0304 avg_kappa=1.0000
+[TRAIN] iter=1440/2000 avg_loss=0.0664 avg_kappa=0.9816
+[TRAIN] iter=1450/2000 avg_loss=0.0095 avg_kappa=1.0000
+[EVAL] iter=<built-in function iter>/2000 avg_loss=3.2024 kappa=0.5668
+[TRAIN] iter=1460/2000 avg_loss=0.0326 avg_kappa=1.0000
