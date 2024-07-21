@@ -116,3 +116,46 @@ Loaded pretrained weights for efficientnet-b3
 [TRAIN] iter=950/2000 avg_loss=0.0406 avg_kappa=1.0000
 [EVAL] iter=<built-in function iter>/2000 avg_loss=1.3524 kappa=0.6109
 [TRAIN] iter=960/2000 avg_loss=0.0726 avg_kappa=1.0000
+[TRAIN] iter=970/2000 avg_loss=0.1911 avg_kappa=0.9317
+[TRAIN] iter=980/2000 avg_loss=0.0747 avg_kappa=1.0000
+[TRAIN] iter=990/2000 avg_loss=0.0540 avg_kappa=0.9829
+[TRAIN] iter=1000/2000 avg_loss=0.0102 avg_kappa=1.0000
+[EVAL] iter=<built-in function iter>/2000 avg_loss=1.3218 kappa=0.6109
+[TRAIN] iter=1010/2000 avg_loss=0.0171 avg_kappa=1.0000
+[TRAIN] iter=1020/2000 avg_loss=0.0769 avg_kappa=0.8971
+[TRAIN] iter=1030/2000 avg_loss=0.0311 avg_kappa=1.0000
+[TRAIN] iter=1040/2000 avg_loss=0.0991 avg_kappa=0.8485
+[TRAIN] iter=1050/2000 avg_loss=0.0417 avg_kappa=0.9820
+[EVAL] iter=<built-in function iter>/2000 avg_loss=1.6942 kappa=0.6853
+[TRAIN] iter=1060/2000 avg_loss=0.0038 avg_kappa=1.0000
+[TRAIN] iter=1070/2000 avg_loss=0.4440 avg_kappa=0.9298
+[TRAIN] iter=1080/2000 avg_loss=0.0930 avg_kappa=0.9789
+[TRAIN] iter=1090/2000 avg_loss=0.1684 avg_kappa=0.9374
+[TRAIN] iter=1100/2000 avg_loss=0.0618 avg_kappa=0.9823
+[EVAL] iter=<built-in function iter>/2000 avg_loss=1.7096 kappa=0.6078
+[TRAIN] iter=1110/2000 avg_loss=0.0701 avg_kappa=0.9813
+[TRAIN] iter=1120/2000 avg_loss=0.0174 avg_kappa=1.0000
+[TRAIN] iter=1130/2000 avg_loss=0.1094 avg_kappa=0.9820
+[TRAIN] iter=1140/2000 avg_loss=0.0188 avg_kappa=1.0000
+[TRAIN] iter=1150/2000 avg_loss=0.0194 avg_kappa=1.0000
+[EVAL] iter=<built-in function iter>/2000 avg_loss=1.6642 kappa=0.6109
+[TRAIN] iter=1160/2000 avg_loss=0.0072 avg_kappa=1.0000
+[TRAIN] iter=1170/2000 avg_loss=0.0126 avg_kappa=1.0000
+[TRAIN] iter=1180/2000 avg_loss=0.1415 avg_kappa=0.8385
+[TRAIN] iter=1190/2000 avg_loss=0.0103 avg_kappa=1.0000
+[TRAIN] iter=1200/2000 avg_loss=0.0150 avg_kappa=1.0000
+[EVAL] iter=<built-in function iter>/2000 avg_loss=2.2673 kappa=0.6109
+[TRAIN] iter=1210/2000 avg_loss=0.0137 avg_kappa=1.0000
+[TRAIN] iter=1220/2000 avg_loss=0.0201 avg_kappa=1.0000
+[TRAIN] iter=1230/2000 avg_loss=0.0044 avg_kappa=1.0000
+[TRAIN] iter=1240/2000 avg_loss=0.1068 avg_kappa=0.9496
+[TRAIN] iter=1250/2000 avg_loss=0.0300 avg_kappa=0.9805
+[EVAL] iter=<built-in function iter>/2000 avg_loss=2.6072 kappa=0.5752
+[TRAIN] iter=1260/2000 avg_loss=0.1260 avg_kappa=0.9127
+[TRAIN] iter=1270/2000 avg_loss=0.1231 avg_kappa=0.9606
+[TRAIN] iter=1280/2000 avg_loss=0.0499 avg_kappa=0.9060
+[TRAIN] iter=1290/2000 avg_loss=0.0381 avg_kappa=1.0000
+[TRAIN] iter=1300/2000 avg_loss=0.0141 avg_kappa=1.0000
+[EVAL] iter=<built-in function iter>/2000 avg_loss=2.0019 kappa=0.6364
+[TRAIN] iter=1310/2000 avg_loss=0.0108 avg_kappa=1.0000
+[TRAIN] iter=1320/2000 avg_loss=0.0312 avg_kappa=1.0000
