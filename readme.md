@@ -18,7 +18,7 @@ python eval_test.py
 
 环境说明：3090+CUDA Version: 11.6+python3.8
 
-精度指标：目测比官方好，具体指标稍后更新
+精度指标：目测比官方好
 
 
 
