@@ -303,10 +303,10 @@ def getDataLoader(batchsize,num_workers):
 
 #hyper parameter
 num_workers = 4
-batchsize = 1
+batchsize = 4
 iters = 2000
 optimizer_type = "adam"
-init_lr = 1e-3
+init_lr = 1e-4
 
 
 train_loader,val_loader =getDataLoader(batchsize,num_workers)
@@ -410,6 +410,8 @@ def train(
                 # 保存精度更好的模型
                 if avg_kappa >= best_kappa:
                     best_kappa = avg_kappa
+                    if not os.path.exists("best_model_{:.4f}".format(best_kappa)):
+                        os.makedirs("best_model_{:.4f}".format(best_kappa))
                     torch.save(
                         model.state_dict(),
                         os.path.join(
