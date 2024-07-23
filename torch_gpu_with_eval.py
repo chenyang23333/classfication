@@ -7,17 +7,9 @@ from sklearn.metrics import cohen_kappa_score
 import torch.nn.functional as F
 import math
 import copy
-
-
-
 import torch
-import torch.nn as nn
 import random
-
-import warnings
-from torchvision import models
 from efficientnet_pytorch import EfficientNet
-from torchvision import transforms as trans
 class GAMMA_sub1_dataset(torch.utils.data.Dataset):
     def __init__(
         self,
@@ -207,11 +199,6 @@ def _make_divisible(ch, divisor=8, min_ch=None):
     return new_ch
 
 
-"""
-
-"""
-
-
 def drop_path(x, drop_prob: float = 0., training: bool = False):
     """
     Drop paths (Stochastic Depth) per sample (when applied in main path of residual blocks).
@@ -230,12 +217,6 @@ def drop_path(x, drop_prob: float = 0., training: bool = False):
     output = x.div(keep_prob) * random_tensor
     return output
 
-
-"""
-
-"""
-
-
 class DropPath(nn.Module):
     """
     Drop paths (Stochastic Depth) per sample  (when applied in main path of residual blocks).
@@ -248,12 +229,6 @@ class DropPath(nn.Module):
 
     def forward(self, x):
         return drop_path(x, self.drop_prob, self.training)
-
-
-"""
-定义BN和激活函数
-"""
-
 
 class ConvBNActivation(nn.Sequential):
     def __init__(self,
@@ -287,12 +262,6 @@ class ConvBNActivation(nn.Sequential):
                                                norm_layer(out_planes),
                                                activation_layer())
 
-
-"""
-定义SE模块
-"""
-
-
 class SqueezeExcitation(nn.Module):
     def __init__(self,
                  input_c: int,  # block input channel
@@ -312,12 +281,6 @@ class SqueezeExcitation(nn.Module):
         scale = self.fc2(scale)
         scale = self.ac2(scale)
         return scale * x
-
-
-"""
-
-"""
-
 
 class InvertedResidualConfig:
     # kernel_size, in_channel, out_channel, exp_ratio, strides, use_SE, drop_connect_rate
@@ -343,12 +306,6 @@ class InvertedResidualConfig:
     @staticmethod
     def adjust_channels(channels: int, width_coefficient: float):
         return _make_divisible(channels * width_coefficient, 8)
-
-
-"""
-
-"""
-
 
 class InvertedResidual(nn.Module):
     def __init__(self,
@@ -409,12 +366,6 @@ class InvertedResidual(nn.Module):
             result += x
 
         return result
-
-
-"""
-
-"""
-
 
 class EfficientNet(nn.Module):
     def __init__(self,
@@ -525,20 +476,12 @@ class EfficientNet(nn.Module):
     def forward(self, x) :
         return self._forward_impl(x)
 
-
-
 def EfficientNetB3(num_classes=1000):
     # input image size 300x300
     return EfficientNet(width_coefficient=1.2,
                         depth_coefficient=1.4,
                         dropout_rate=0.3,
                         num_classes=num_classes)
-
-
-
-
-
-
 
 class BasicBlock(nn.Module):
     expansion = 1
@@ -601,9 +544,6 @@ class ResNet(nn.Module):
 
 def ResNet34():
     return ResNet(BasicBlock, [3, 4, 6, 3])
-
-
-
 
 
 
