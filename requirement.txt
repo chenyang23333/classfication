@@ -1,0 +1,5 @@
+opencv-contrib-python
+scikit-learn
+efficientnet_pytorch
+scikit-image
+openpyxl
